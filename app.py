@@ -3,7 +3,7 @@ import telebot
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-TOKEN = os.getenv('BOT_TOKEN')
+TOKEN = os.getenv('9013637452:AAGrvoF4bo7hcaQFuc31YHDHuCoMm1M0iNk')
 GROUP_ID = -1004227685910
 RULES_TEXT = """📌 Пожалуйста, ознакомьтесь с правилами сообщества перед тем, как писать комментарии.
 
