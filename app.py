@@ -1,10 +1,10 @@
 import os
 import telebot
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 TOKEN = os.getenv('BOT_TOKEN')
-
 GROUP_ID = -1004227685910
-
 RULES_TEXT = """📌 Пожалуйста, ознакомьтесь с правилами сообщества перед тем, как писать комментарии.
 
 <b>‼️ ПРАВИЛА ‼️</b>
@@ -26,8 +26,6 @@ def handle_new_post(message):
         bot.reply_to(message, RULES_TEXT)
     except Exception as e:
         print(f"Ошибка: {e}")
-import threading
-from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class HealthCheckHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -36,10 +34,11 @@ class HealthCheckHandler(BaseHTTPRequestHandler):
         self.wfile.write(b"Bot is alive!")
 
 def run_health_check():
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get("PORT", 10000))  # Render передаёт порт в переменной PORT
     server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
     server.serve_forever()
 
 threading.Thread(target=run_health_check, daemon=True).start()
+
 print("Бот запущен и следит за постами...")
 bot.infinity_polling()
